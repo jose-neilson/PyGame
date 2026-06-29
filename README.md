@@ -7,7 +7,7 @@ Demo 2D em Pygame criada para a atividade prática. O jogo usa os assets locais 
 No Linux, com o `uv`, crie o ambiente e instale as dependências:
 
 ```bash
-uv venv --python 3.12.13 .venv
+uv venv --python 3.11.9 .venv
 uv pip install -r requirements.txt --python .venv/bin/python
 ```
 
@@ -23,7 +23,7 @@ Rode o jogo:
 .venv/bin/python main.py
 ```
 
-No Windows, depois de instalar o Python 3.12, também é possível rodar:
+No Windows, instale o Python 3.11.x e rode:
 
 ```bat
 run_windows.bat
@@ -43,13 +43,15 @@ Derrote todos os inimigos e alcance a bandeira no final de cada fase. A demo tem
 
 ## Build para Windows
 
-No Windows, clone ou baixe este repositório, instale o Python 3.12 e execute:
+No Windows, clone ou baixe este repositório, instale o Python 3.11.x e execute:
 
 ```bat
 build_windows.bat
 ```
 
 O script instala as dependências, gera `SkyboundPeaks.exe`, copia a pasta `Mountain Shooter Assets/` e cria o arquivo `SkyboundPeaks-Windows.zip` pronto para entrega.
+
+Se aparecer erro com `distutils.msvccompiler`, confira se o comando `py -3.11 --version` funciona. Em Python 3.12+ algumas ferramentas antigas ainda podem falhar porque o `distutils` foi removido da biblioteca padrão.
 
 Se fizer manualmente, mantenha esta estrutura ao lado do executável:
 

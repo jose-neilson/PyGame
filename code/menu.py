@@ -1,7 +1,7 @@
 import pygame
 
 from code.assets import Assets
-from code.settings import CYAN, GREEN, HEIGHT, ORANGE, TITLE, WHITE, WIDTH, YELLOW
+from code.settings import CYAN, GREEN, HEIGHT, PANEL, PANEL_BORDER, TITLE, WHITE, WIDTH, YELLOW
 
 
 class Menu:
@@ -9,9 +9,9 @@ class Menu:
         self.window = window
         self.assets = assets
         self.bg = assets.background("MenuBg.png")
-        self.title_font = pygame.font.SysFont("lucidasanstypewriter", 42, bold=True)
-        self.font = pygame.font.SysFont("lucidasanstypewriter", 16)
-        self.small = pygame.font.SysFont("lucidasanstypewriter", 12)
+        self.title_font = pygame.font.SysFont("verdana", 26, bold=True)
+        self.font = pygame.font.SysFont("verdana", 13)
+        self.small = pygame.font.SysFont("verdana", 10)
 
     def run(self) -> str:
         self.assets.play_music("Menu.mp3", 0.35)
@@ -27,16 +27,35 @@ class Menu:
                     if event.key == pygame.K_ESCAPE:
                         return "quit"
 
-            self.window.blit(self.bg, (0, 0))
-            self._center(self.title_font, TITLE, ORANGE, HEIGHT // 2 - 72)
-            self._center(self.font, "ENTER - iniciar", YELLOW, HEIGHT // 2 + 8)
-            self._center(self.font, "A/D ou Setas - mover", WHITE, HEIGHT // 2 + 42)
-            self._center(self.font, "Espaco - pular    J/CTRL - atirar", WHITE, HEIGHT // 2 + 64)
-            self._center(self.small, "Objetivo: complete as 2 fases derrotando todos os inimigos", GREEN, HEIGHT - 34)
-            self._center(self.small, "ESC - sair", CYAN, HEIGHT - 18)
+            self._draw()
             pygame.display.flip()
 
-    def _center(self, font: pygame.font.Font, text: str, color: tuple[int, int, int], y: int):
+    def _draw(self):
+        self.window.blit(self.bg, (0, 0))
+        panel = pygame.Rect(18, 22, 318, HEIGHT - 44)
+        panel_surface = pygame.Surface(panel.size, pygame.SRCALPHA)
+        panel_surface.fill((*PANEL, 216))
+        self.window.blit(panel_surface, panel)
+        pygame.draw.rect(self.window, PANEL_BORDER, panel, 2)
+
+        self._text(self.title_font, TITLE, WHITE, 38, 42)
+        self._text(self.small, "Aventura plataforma 2D", CYAN, 40, 80)
+        pygame.draw.line(self.window, PANEL_BORDER, (40, 106), (304, 106), 2)
+
+        self._text(self.font, "ENTER", YELLOW, 44, 128)
+        self._text(self.font, "Iniciar", WHITE, 134, 128)
+        self._text(self.font, "A/D", YELLOW, 44, 156)
+        self._text(self.font, "Mover", WHITE, 134, 156)
+        self._text(self.font, "ESPACO", YELLOW, 44, 184)
+        self._text(self.font, "Pular", WHITE, 134, 184)
+        self._text(self.font, "J/CTRL", YELLOW, 44, 212)
+        self._text(self.font, "Atirar", WHITE, 134, 212)
+
+        self._text(self.small, "Complete 2 fases.", GREEN, 40, HEIGHT - 68)
+        self._text(self.small, "Derrote todos os inimigos.", GREEN, 40, HEIGHT - 52)
+        self._text(self.small, "Alcance a bandeira.", GREEN, 40, HEIGHT - 36)
+        self._text(self.small, "ESC sai do jogo", CYAN, 194, HEIGHT - 36)
+
+    def _text(self, font: pygame.font.Font, text: str, color: tuple[int, int, int], x: int, y: int):
         surf = font.render(text, True, color)
-        rect = surf.get_rect(center=(WIDTH // 2, y))
-        self.window.blit(surf, rect)
+        self.window.blit(surf, (x, y))

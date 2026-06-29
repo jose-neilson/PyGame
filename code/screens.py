@@ -1,7 +1,7 @@
 import pygame
 
 from code.assets import Assets
-from code.settings import CYAN, GREEN, HEIGHT, ORANGE, RED, WHITE, WIDTH, YELLOW
+from code.settings import CYAN, GREEN, HEIGHT, PANEL, PANEL_BORDER, RED, WHITE, YELLOW
 
 
 class ResultScreen:
@@ -9,8 +9,8 @@ class ResultScreen:
         self.window = window
         self.assets = assets
         self.bg = assets.background("ScoreBg.png")
-        self.title_font = pygame.font.SysFont("lucidasanstypewriter", 36, bold=True)
-        self.font = pygame.font.SysFont("lucidasanstypewriter", 16)
+        self.title_font = pygame.font.SysFont("verdana", 30, bold=True)
+        self.font = pygame.font.SysFont("verdana", 14)
 
     def run(self, result: str) -> str:
         self.assets.play_music("Score.mp3", 0.35)
@@ -32,13 +32,17 @@ class ResultScreen:
                         return "menu"
 
             self.window.blit(self.bg, (0, 0))
-            self._center(self.title_font, title, color, HEIGHT // 2 - 42)
-            self._center(self.font, subtitle, WHITE, HEIGHT // 2 + 2)
-            self._center(self.font, "ENTER - jogar novamente", YELLOW, HEIGHT // 2 + 42)
-            self._center(self.font, "ESC - voltar ao menu", CYAN, HEIGHT // 2 + 66)
+            panel = pygame.Rect(138, 74, 326, 170)
+            panel_surface = pygame.Surface(panel.size, pygame.SRCALPHA)
+            panel_surface.fill((*PANEL, 220))
+            self.window.blit(panel_surface, panel)
+            pygame.draw.rect(self.window, PANEL_BORDER, panel, 2)
+            self._text(self.title_font, title, color, 170, 98)
+            self._text(self.font, subtitle, WHITE, 170, 146)
+            self._text(self.font, "ENTER  jogar novamente", YELLOW, 170, 186)
+            self._text(self.font, "ESC    voltar ao menu", CYAN, 170, 210)
             pygame.display.flip()
 
-    def _center(self, font: pygame.font.Font, text: str, color: tuple[int, int, int], y: int):
+    def _text(self, font: pygame.font.Font, text: str, color: tuple[int, int, int], x: int, y: int):
         surf = font.render(text, True, color)
-        rect = surf.get_rect(center=(WIDTH // 2, y))
-        self.window.blit(surf, rect)
+        self.window.blit(surf, (x, y))

@@ -1,16 +1,19 @@
 @echo off
 setlocal
 
-python -m pip install --upgrade pip
+py -3.11 --version
 if errorlevel 1 exit /b 1
 
-python -m pip install -r requirements.txt
+py -3.11 -m pip install --upgrade pip
 if errorlevel 1 exit /b 1
 
-python -m pip install -r requirements-dev.txt
+py -3.11 -m pip install -r requirements.txt
 if errorlevel 1 exit /b 1
 
-pyinstaller --noconfirm --clean --onefile --windowed --name SkyboundPeaks main.py
+py -3.11 -m pip install -r requirements-dev.txt
+if errorlevel 1 exit /b 1
+
+py -3.11 -m PyInstaller --noconfirm --clean --onefile --windowed --name SkyboundPeaks main.py
 if errorlevel 1 exit /b 1
 
 if exist release rmdir /s /q release
