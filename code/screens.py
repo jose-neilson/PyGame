@@ -1,7 +1,7 @@
 import pygame
 
 from code.assets import Assets
-from code.settings import CYAN, GREEN, HEIGHT, PANEL, PANEL_BORDER, RED, WHITE, YELLOW
+from code.settings import AUTHOR, CYAN, GREEN, HEIGHT, PANEL, PANEL_BORDER, RED, RU, WHITE, YELLOW
 
 
 class ResultScreen:
@@ -11,6 +11,7 @@ class ResultScreen:
         self.bg = assets.background("ScoreBg.png")
         self.title_font = pygame.font.SysFont("verdana", 30, bold=True)
         self.font = pygame.font.SysFont("verdana", 14)
+        self.small = pygame.font.SysFont("verdana", 10)
 
     def run(self, result: str) -> str:
         self.assets.play_music("Score.mp3", 0.35)
@@ -41,6 +42,8 @@ class ResultScreen:
             self._text(self.font, subtitle, WHITE, 170, 146)
             self._text(self.font, "ENTER  jogar novamente", YELLOW, 170, 186)
             self._text(self.font, "ESC    voltar ao menu", CYAN, 170, 210)
+            self._text(self.small, AUTHOR, WHITE, 150, 254)
+            self._text(self.small, RU, CYAN, 150, 270)
             pygame.display.flip()
 
     def _text(self, font: pygame.font.Font, text: str, color: tuple[int, int, int], x: int, y: int):

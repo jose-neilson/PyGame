@@ -1,7 +1,7 @@
 import pygame
 
 from code.assets import Assets
-from code.settings import CYAN, GREEN, HEIGHT, PANEL, PANEL_BORDER, TITLE, WHITE, WIDTH, YELLOW
+from code.settings import AUTHOR, CYAN, GREEN, HEIGHT, PANEL, PANEL_BORDER, RU, TITLE, WHITE, WIDTH, YELLOW
 
 
 class Menu:
@@ -51,10 +51,11 @@ class Menu:
         self._text(self.font, "J/CTRL", YELLOW, 44, 212)
         self._text(self.font, "Atirar", WHITE, 134, 212)
 
-        self._text(self.small, "Complete 2 fases.", GREEN, 40, HEIGHT - 68)
-        self._text(self.small, "Derrote todos os inimigos.", GREEN, 40, HEIGHT - 52)
-        self._text(self.small, "Alcance a bandeira.", GREEN, 40, HEIGHT - 36)
-        self._text(self.small, "ESC sai do jogo", CYAN, 194, HEIGHT - 36)
+        self._text(self.small, "Complete 2 fases.", GREEN, 40, HEIGHT - 84)
+        self._text(self.small, "Derrote todos os inimigos.", GREEN, 40, HEIGHT - 68)
+        self._text(self.small, "Alcance a bandeira.", GREEN, 40, HEIGHT - 52)
+        self._text(self.small, AUTHOR, WHITE, 40, HEIGHT - 34)
+        self._text(self.small, RU, CYAN, 238, HEIGHT - 34)
 
     def _text(self, font: pygame.font.Font, text: str, color: tuple[int, int, int], x: int, y: int):
         surf = font.render(text, True, color)

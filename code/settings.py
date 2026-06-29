@@ -13,6 +13,8 @@ HEIGHT = 324
 FPS = 60
 
 TITLE = "Skybound Peaks"
+AUTHOR = "Jose Neilson Viana do Nascimento"
+RU = "RU: 5176436"
 
 WHITE = (245, 245, 245)
 YELLOW = (255, 230, 120)
